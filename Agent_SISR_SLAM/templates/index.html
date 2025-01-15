@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agent SISR/SLAM</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js"></script>
+  <link rel="stylesheet" src="../static/style.css">
+  <script src="../static/script.js"></script>
 </head>
 <body>
   <header>
@@ -14,6 +14,7 @@
   </header>
 
   <main>
+    <!-- Formulaire de classification -->
     <section id="classifier">
       <h2>Classification de Texte</h2>
       <form id="classifyForm">
@@ -21,18 +22,25 @@
         <textarea id="textInput" rows="4" placeholder="Exemple : J'aime travailler avec des serveurs"></textarea>
         <button type="submit">Classer</button>
       </form>
-      <div id="result">
-        <!-- Les résultats apparaîtront ici -->
-      </div>
-      <div id="loader" style="display: none;">
-        <div class="spinner"></div>
-      </div>
-      
+      <div id="classifyResult"></div>
+    </section>
+
+    <!-- Formulaire de questionnaire -->
+    <section id="questionnaire">
+      <h2>Questionnaire</h2>
+      <form id="questionnaireForm">
+        <label for="answers">Réponses :</label>
+        <input type="text" id="answers" placeholder='Exemple : ["oui", "non", "oui"]'>
+        <button type="submit">Envoyer</button>
+      </form>
+      <div id="questionnaireResult"></div>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 - Agent SISR/SLAM | Créé avec passion.</p>
+    <p>© 2025 - Agent SISR/SLAM</p>
   </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

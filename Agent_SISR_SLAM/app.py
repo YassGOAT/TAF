@@ -1,11 +1,12 @@
-from flask import Flask, request, jsonify
-from classifier import classify_text  # Importer la fonction de classification
+from flask import Flask, request, jsonify, render_template
+from classifier import classify_text
+
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Bienvenue sur l'agent d'orientation SISR/SLAM !"
+    return render_template('index.html')  # Sert le fichier HTML
 
 @app.route('/classify', methods=['POST'])
 def classify():
