@@ -1,54 +1,70 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Classification de texte
-  const classifyForm = document.getElementById("classifyForm");
-  const classifyResult = document.getElementById("classifyResult");
+  // Définir les questions
+  // Générer dynamiquement les questions
+  const questions = [
+    "Aimez-vous travailler sur des serveurs ?",
+    "Préférez-vous créer des applications ?",
+    "Avez-vous un intérêt pour la virtualisation ?",
+    "Vous aimez manipuler des bases de données ?",
+  ];
 
-  classifyForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const textInput = document.getElementById("textInput").value;
-
-    if (!textInput.trim()) {
-      classifyResult.innerHTML = "<p style='color: red;'>Veuillez entrer un texte !</p>";
-      return;
-    }
-
-    try {
-      const response = await fetch("/classify", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: textInput }),
-      });
-
-      const data = await response.json();
-      classifyResult.innerHTML = `<p>Texte : ${data.text}</p><p>Classification : ${data.classification}</p>`;
-    } catch (error) {
-      classifyResult.innerHTML = "<p style='color: red;'>Erreur lors de la classification.</p>";
-    }
+  const questionsContainer = document.getElementById("questionsContainer");
+  questions.forEach((question, index) => {
+    const questionDiv = document.createElement("div");
+    questionDiv.innerHTML = `
+      <label>${question}</label><br>
+      <input type="radio" name="question${index}" value="oui" required> Oui
+      <input type="radio" name="question${index}" value="non" required> Non
+    `;
+    questionsContainer.appendChild(questionDiv);
   });
 
-  // Questionnaire
+
+  // Gérer la soumission du formulaire
   const questionnaireForm = document.getElementById("questionnaireForm");
   const questionnaireResult = document.getElementById("questionnaireResult");
 
   questionnaireForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const answersInput = document.getElementById("answers").value;
-
+  
+    // Récupérer les réponses de l'utilisateur
+    const answers = [];
+    questions.forEach((_, index) => {
+      const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+      if (selectedOption) {
+        answers.push(selectedOption.value); // Ajouter la réponse ("oui" ou "non") au tableau
+      } else {
+        answers.push("non"); // Par défaut, considérer "non" si aucune réponse n'est sélectionnée
+      }
+    });
+  
     try {
+      // Envoyer les réponses au backend
       const response = await fetch("/questionnaire", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ answers: JSON.parse(answersInput) }),
+        body: JSON.stringify({ answers: answers }),
       });
-
+  
       const data = await response.json();
       questionnaireResult.innerHTML = `<p>Orientation : ${data.orientation}</p>`;
     } catch (error) {
+      console.error("Erreur :", error);
       questionnaireResult.innerHTML = "<p style='color: red;'>Erreur lors de l'envoi du questionnaire.</p>";
     }
-  });
+  });  
 });
+
+const answers = [];
+questions.forEach((_, index) => {
+  const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+  if (selectedOption) {
+    answers.push(selectedOption.value);
+  } else {
+    answers.push("non");
+  }
+});
+
+console.log("Réponses collectées :", answers); // Vérifiez les réponses ici
