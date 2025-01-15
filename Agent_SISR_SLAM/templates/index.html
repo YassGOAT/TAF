@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,34 +14,15 @@
   </header>
 
   <main>
-    <!-- Formulaire de classification -->
-    <section id="classifier">
-      <h2>Classification de Texte</h2>
-      <form id="classifyForm">
-        <label for="textInput">Entrez un texte :</label>
-        <textarea id="textInput" rows="4" placeholder="Exemple : J'aime travailler avec des serveurs"></textarea>
-        <button type="submit">Classer</button>
-      </form>
-      <div id="classifyResult"></div>
-    </section>
-
-    <!-- Formulaire de questionnaire -->
-    <section id="questionnaire">
-      <h2>Questionnaire</h2>
-      <form id="questionnaireForm">
-        <div id="questionsContainer">
-          <!-- Les questions seront ajoutées ici par JavaScript -->
-        </div>
-        <button type="submit">Soumettre</button>
-      </form>
-      <div id="questionnaireResult"></div>
-    </section>    
+    <!-- Contenu principal -->
+    <div id="content">Bienvenue</div>
   </main>
 
   <footer>
     <p>© 2025 - Agent SISR/SLAM</p>
   </footer>
 
+  <!-- Référence au fichier JavaScript -->
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
