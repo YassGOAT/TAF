@@ -7,10 +7,6 @@ app = Flask(__name__)
 def home():
     return "Bienvenue sur l'agent d'orientation SISR/SLAM !"
 
-if __name__ == "__main__":
-    app.run(debug=True)
-    
-
 @app.route('/classify', methods=['POST'])
 def classify():
     data = request.json  # Récupère le JSON envoyé dans la requête
@@ -20,9 +16,6 @@ def classify():
     text = data["text"]
     classification = classify_text(text)  # Appelle la fonction classifier
     return jsonify({"text": text, "classification": classification})
-
-if __name__ == "__main__":
-    app.run(debug=True)
 
 @app.route('/questionnaire', methods=['POST'])
 def questionnaire():
@@ -49,3 +42,6 @@ def questionnaire():
         return jsonify({"orientation": "SLAM"})
     else:
         return jsonify({"orientation": "Indécis"})
+
+if __name__ == "__main__":
+    app.run(debug=True)
