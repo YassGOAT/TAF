@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent SISR/SLAM</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Agent SISR/SLAM</h1>
+    <p>Découvrez votre orientation grâce à notre application interactive.</p>
+  </header>
+
+  <main>
+    <section id="classifier">
+      <h2>Classification de Texte</h2>
+      <form id="classifyForm">
+        <label for="textInput">Entrez un texte :</label>
+        <textarea id="textInput" rows="4" placeholder="Exemple : J'aime travailler avec des serveurs"></textarea>
+        <button type="submit">Classer</button>
+      </form>
+      <div id="result">
+        <!-- Les résultats apparaîtront ici -->
+      </div>
+      <div id="loader" style="display: none;">
+        <div class="spinner"></div>
+      </div>
+      
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 - Agent SISR/SLAM | Créé avec passion.</p>
+  </footer>
+</body>
+</html>

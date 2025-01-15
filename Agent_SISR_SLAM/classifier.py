@@ -1,3 +1,5 @@
+from flask import Flask, request, jsonify
+
 def classify_text(text):
     sisr_keywords = ["serveur", "virtualisation", "réseau", "sécurité"]
     slam_keywords = ["application", "développement", "base de données", "programmation"]

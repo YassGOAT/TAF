@@ -1,6 +1,12 @@
-print("Le fichier questionnaire.py a démarré.")
+from flask import Flask, request, jsonify
 
-def ask_questions():
+@app.route('/questionnaire', methods=['POST'])
+def questionnaire():
+    data = request.json  # Récupère le JSON envoyé dans la requête
+    if not data or "answers" not in data:
+        return jsonify({"error": "Veuillez fournir les réponses au questionnaire."}), 400
+
+    answers = data["answers"]
     questions = [
         {"question": "Aimez-vous travailler sur des serveurs ?", "field": "sisr"},
         {"question": "Préférez-vous créer des applications ?", "field": "slam"},
@@ -9,22 +15,13 @@ def ask_questions():
     ]
 
     scores = {"sisr": 0, "slam": 0}
-
-    # Pose les questions à l'utilisateur
-    for q in questions:
-        answer = input(q["question"] + " (oui/non) : ").strip().lower()
-        if answer == "oui":
+    for idx, q in enumerate(questions):
+        if idx < len(answers) and answers[idx].lower() == "oui":
             scores[q["field"]] += 1
 
-    # Détermine l'orientation
     if scores["sisr"] > scores["slam"]:
-        return "SISR"
+        return jsonify({"orientation": "SISR"})
     elif scores["slam"] > scores["sisr"]:
-        return "SLAM"
+        return jsonify({"orientation": "SLAM"})
     else:
-        return "Indécis"
-
-# Ajoutez ceci pour exécuter la fonction lorsqu'on lance le fichier directement
-if __name__ == "__main__":
-    orientation = ask_questions()
-    print(f"Votre orientation est : {orientation}")
+        return jsonify({"orientation": "Indécis"})

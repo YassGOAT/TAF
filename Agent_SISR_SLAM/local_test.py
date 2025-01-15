@@ -1,5 +1,6 @@
 from classifier import classify_text
 from questionnaire import ask_questions
+from flask import Flask, request, jsonify
 
 # Tester le classifieur
 text = "J'aime travailler sur des bases de données et des applications."
