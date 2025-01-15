@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 
+app = Flask(__name__)
+
 @app.route('/questionnaire', methods=['POST'])
 def questionnaire():
     data = request.json  # Récupère le JSON envoyé dans la requête

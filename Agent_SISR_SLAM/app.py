@@ -3,6 +3,14 @@ from classifier import classify_text  # Importer la fonction de classification
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return "Bienvenue sur l'agent d'orientation SISR/SLAM !"
+
+if __name__ == "__main__":
+    app.run(debug=True)
+    
+
 @app.route('/classify', methods=['POST'])
 def classify():
     data = request.json  # Récupère le JSON envoyé dans la requête
@@ -18,8 +26,7 @@ if __name__ == "__main__":
 
 @app.route('/questionnaire', methods=['POST'])
 def questionnaire():
-    print("Route '/questionnaire' appelée.")  # Log pour confirmer que la route est atteinte
-    data = request.json  # Récupère le corps JSON de la requête
+    data = request.json  # Récupère le JSON envoyé dans la requête
     if not data or "answers" not in data:
         return jsonify({"error": "Veuillez fournir les réponses au questionnaire."}), 400
 
@@ -42,4 +49,3 @@ def questionnaire():
         return jsonify({"orientation": "SLAM"})
     else:
         return jsonify({"orientation": "Indécis"})
-
