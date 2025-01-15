@@ -10,7 +10,7 @@ def home():
 
 @app.route('/classify', methods=['POST'])
 def classify():
-    data = request.json  # Récupère le JSON envoyé dans la requête
+    data = request.json
     if not data or "text" not in data:
         return jsonify({"error": "Veuillez fournir un texte à classifier."}), 400
 
